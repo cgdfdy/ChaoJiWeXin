@@ -84,7 +84,7 @@
         <activity
             android:name="cn.ucai.superwechat.ui.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Holo.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <!-- 聊天页面 -->
         <activity

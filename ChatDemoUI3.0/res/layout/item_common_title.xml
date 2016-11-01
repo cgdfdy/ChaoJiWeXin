@@ -7,12 +7,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#000">
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:src="@drawable/em_mm_title_back"
-            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:background="@drawable/em_mm_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
@@ -21,5 +21,10 @@
             android:textSize="20sp"
             android:textColor="#fff"
             />
+        <Button
+            android:layout_alignParentRight="true"
+            android:background="@drawable/icon_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </LinearLayout>
