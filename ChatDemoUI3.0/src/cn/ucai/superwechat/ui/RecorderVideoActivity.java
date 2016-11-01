@@ -21,6 +21,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -50,7 +51,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.hyphenate.chatuidemo.R;
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.video.util.Utils;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
@@ -86,7 +87,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 		// translucency mode，used in surface view
 		getWindow().setFormat(PixelFormat.TRANSLUCENT);
 		setContentView(R.layout.em_recorder_activity);
-		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
 				CLASS_LABEL);
 		mWakeLock.acquire();
@@ -119,7 +120,7 @@ public class RecorderVideoActivity extends BaseActivity implements
 		super.onResume();
 		if (mWakeLock == null) {
 			// keep screen on
-			PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+			PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 			mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
 					CLASS_LABEL);
 			mWakeLock.acquire();

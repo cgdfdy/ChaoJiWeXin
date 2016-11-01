@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import com.hyphenate.chatuidemo.R;
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.adapter.NewFriendsMsgAdapter;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.domain.InviteMessage;
@@ -39,7 +39,7 @@ public class NewFriendsMsgActivity extends BaseActivity {
 		InviteMessgeDao dao = new InviteMessgeDao(this);
 		List<InviteMessage> msgs = dao.getMessagesList();
 
-		NewFriendsMsgAdapter adapter = new NewFriendsMsgAdapter(this, 1, msgs);
+		NewFriendsMsgAdapter adapter = new NewFriendsMsgAdapter(this, 1, msgs); 
 		listView.setAdapter(adapter);
 		dao.saveUnreadMessageCount(0);
 		
