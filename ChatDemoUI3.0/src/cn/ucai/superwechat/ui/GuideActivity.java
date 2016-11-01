@@ -8,12 +8,12 @@ import butterknife.OnClick;
 import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.utils.MFGT;
 
-public class WelcomeActivity extends BaseActivity {
+public class GuideActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);
     }
     @OnClick({R.id.btn_login, R.id.btn_register})

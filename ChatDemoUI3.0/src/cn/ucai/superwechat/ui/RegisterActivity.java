@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 /**
  * register screen
- * 
+ *
  */
 public class RegisterActivity extends BaseActivity {
 	private EditText userNameEditText;
