@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 
 import butterknife.Bind;
@@ -38,12 +39,15 @@ import butterknife.OnClick;
 import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatApplication;
 import cn.ucai.superwechat.SuperWeChatHelper;
+import cn.ucai.superwechat.bean.Result;
 import cn.ucai.superwechat.data.NetDao;
 import cn.ucai.superwechat.data.OkHttpUtils;
 import cn.ucai.superwechat.db.SuperWeChatManager;
+import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.utils.L;
 import cn.ucai.superwechat.utils.MD5;
 import cn.ucai.superwechat.utils.MFGT;
+import cn.ucai.superwechat.utils.ResultUtils;
 
 /**
  * Login screen
@@ -60,6 +64,7 @@ public class LoginActivity extends BaseActivity {
     EditText mUsername;
     @Bind(R.id.password)
     EditText mPassword;
+
     Button btnlogin;
 
     String currentUsername;
@@ -68,6 +73,7 @@ public class LoginActivity extends BaseActivity {
     LoginActivity mContext;
     private boolean progressShow;
     private boolean autoLogin = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +87,8 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.em_activity_login);
         ButterKnife.bind(this);
         btnlogin= (Button) findViewById(R.id.btn_login);
-        setListener();
         initView();
+        setListener();
 
     }
 
@@ -96,6 +102,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setListener() {
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
         // if user changed, clear the password
         mUsername.addTextChangedListener(new TextWatcher() {
             @Override
@@ -199,12 +211,27 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(String s) {
                 L.e(TAG,"s="+s);
+                if (s!=null&& s!=""){
+                    Result result = ResultUtils.getListResultFromJson(s, User.class);
+                    if (result!=null && result.isRetMsg()){
+                        User user = (User) result.getRetData();
+                        if (user!=null){
+                            UserDao dao =new UserDao(mContext);
+                            dao.saveUser(user);
+                            SuperWeChatHelper.getInstance().setCurrentUser(user);
+                            loginSuccess();
+                        }
+                    }else {
+                        pd.dismiss();
+                        L.e(TAG,"login fail,"+result);
+                    }
+                }
 
-                loginSuccess();
             }
 
             @Override
             public void onError(String error) {
+                pd.dismiss();
                 L.e(TAG,"onError="+error);
 
             }
@@ -245,15 +272,11 @@ public class LoginActivity extends BaseActivity {
             }
         }
 
-    @OnClick({R.id.btn_back,R.id.btn_login,R.id.btn_register})
+    @OnClick({R.id.btn_back,R.id.btn_register})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_back:
                 MFGT.finish(this);
-                break;
-
-            case R.id.btn_login:
-                login();
                 break;
             case R.id.btn_register:
                 MFGT.gotoRegister(this);

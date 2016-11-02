@@ -57,7 +57,15 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 	private DbOpenHelper(Context context) {
 		super(context, getUserDatabaseName(), null, DATABASE_VERSION);
 	}
-	
+	private static final String CREATE_USER_TABLE = "CREATE TABLE "
+			+ UserDao.TABLE_USER_NAME + " ("
+			+ UserDao.TABLE_COLUMN_NAME + " TEXT PRIMARY KEY ,"
+			+ UserDao.TABLE_COLUMN_NICK + " TEXT, "
+			+ UserDao.TABLE_COLUMN_AVATAR_ID + " INTEGER, "
+			+ UserDao.TABLE_COLUMN_AVATAR_TYPE + " INTEGER, "
+			+ UserDao.TABLE_COLUMN_AVATAR_PATH + " TEXT, "
+			+ UserDao.TABLE_COLUMN_AVATAR_SUFFIX + " TEXT "
+			+ UserDao.TABLE_COLUMN_AVATAR_LASTUPDATE_TIME + " TEXT);";
 	public static DbOpenHelper getInstance(Context context) {
 		if (instance == null) {
 			instance = new DbOpenHelper(context.getApplicationContext());
@@ -75,6 +83,7 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 		db.execSQL(INIVTE_MESSAGE_TABLE_CREATE);
 		db.execSQL(CREATE_PREF_TABLE);
 		db.execSQL(ROBOT_TABLE_CREATE);
+		db.execSQL(CREATE_USER_TABLE);
 		
 	}
 
