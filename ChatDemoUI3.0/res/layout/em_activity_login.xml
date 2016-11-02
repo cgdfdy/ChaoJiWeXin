@@ -63,13 +63,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp"
         android:background="#a2f279"
-        android:onClick="login"
         android:text="登录"
         android:textColor="#fff"
         android:textSize="25dp" />

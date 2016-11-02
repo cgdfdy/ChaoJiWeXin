@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/img_splash">
     <Button
-        android:onClick="login"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:background="@drawable/icon_btn_login"

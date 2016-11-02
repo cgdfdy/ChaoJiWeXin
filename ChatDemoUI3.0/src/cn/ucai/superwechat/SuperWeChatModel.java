@@ -45,6 +45,8 @@ public class SuperWeChatModel {
      */
     public void setCurrentUserName(String username){
         PreferenceManager.getInstance().setCurrentUserName(username);
+
+
     }
 
     public String getCurrentUsernName(){
