@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         progressShow = true;
-        pd = new ProgressDialog(LoginActivity.this);
+        pd = new ProgressDialog(mContext);
         pd.setCanceledOnTouchOutside(false);
         pd.setOnCancelListener(new OnCancelListener() {
 
@@ -175,13 +175,10 @@ public class LoginActivity extends BaseActivity {
         // call login method
         Log.d(TAG, "EMClient.getInstance().login");
         EMClient.getInstance().login(currentUsername, MD5.getMessageDigest(currentPassword), new EMCallBack() {
-
             @Override
             public void onSuccess() {
                 Log.d(TAG, "login: onSuccess");
                 loginAppServer();
-
-
             }
 
             @Override
@@ -225,6 +222,9 @@ public class LoginActivity extends BaseActivity {
                         pd.dismiss();
                         L.e(TAG,"login fail,"+result);
                     }
+                }else {
+                    pd.dismiss();
+
                 }
 
             }
