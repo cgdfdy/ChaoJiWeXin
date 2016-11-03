@@ -2,7 +2,7 @@ package cn.ucai.superwechat.bean;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User extends com.hyphenate.easeui.domain.User implements Serializable {
 	private String muserName;
 	private String muserNick;
 	private Integer mavatarId;

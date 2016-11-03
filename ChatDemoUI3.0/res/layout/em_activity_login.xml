@@ -88,9 +88,10 @@
             android:textColor="#62c3f1" />
         <Button
             android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
             android:text="注册"
+            android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             />
