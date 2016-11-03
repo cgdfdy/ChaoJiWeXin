@@ -1,15 +1,14 @@
 package cn.ucai.superwechat.ui;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
 
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.domain.User;
 
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.R;
+import cn.ucai.superwechat.bean.User;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.utils.L;
 
@@ -24,8 +23,8 @@ public class SplashActivity extends BaseActivity {
 	SplashActivity mContext;
 	@Override
 	protected void onCreate(Bundle arg0) {
-		setContentView(R.layout.em_activity_splash);
 		super.onCreate(arg0);
+		setContentView(R.layout.em_activity_splash);
 		mContext =this;
 
 		/*RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.splash_root);

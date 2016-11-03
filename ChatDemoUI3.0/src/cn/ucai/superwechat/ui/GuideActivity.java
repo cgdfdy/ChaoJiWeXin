@@ -12,17 +12,17 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.utils.MFGT;
 
 public class GuideActivity extends BaseActivity {
-
     Button btnGologin;
-    Button btnRegister;
+    Button btnGoRegister;
+    GuideActivity mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        ButterKnife.bind(this);
+        mContext =this;
         btnGologin = (Button) findViewById(R.id.btn_gologin);
-        btnRegister = (Button) findViewById(R.id.btn_register);
+        btnGoRegister = (Button) findViewById(R.id.btn_goregister);
         btnGologin();
         gotoRegister();
     }
@@ -38,13 +38,14 @@ public class GuideActivity extends BaseActivity {
         });
     }
     public void gotoRegister() {
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnGoRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GuideActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(GuideActivity.this, RegisterActivity.class);
                 startActivity(intent);
 
             }
         });
+
     }
 }

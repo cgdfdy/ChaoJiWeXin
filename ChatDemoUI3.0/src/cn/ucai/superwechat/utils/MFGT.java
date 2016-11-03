@@ -34,6 +34,7 @@ public class MFGT {
         context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
     public static void gotoLogin(Activity context){
+
         startActivity(context, LoginActivity.class);
     }
     public static void gotoRegister(Activity context){

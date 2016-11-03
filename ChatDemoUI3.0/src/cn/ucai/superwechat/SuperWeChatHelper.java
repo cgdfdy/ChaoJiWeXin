@@ -26,6 +26,7 @@ import com.hyphenate.chat.EMMessage.Type;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
 
+import cn.ucai.superwechat.bean.User;
 import cn.ucai.superwechat.db.SuperWeChatManager;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
@@ -47,7 +48,6 @@ import com.hyphenate.easeui.controller.EaseUI.EaseUserProfileProvider;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
 import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
@@ -96,18 +96,7 @@ public class SuperWeChatHelper {
 
     private User currentUser =null;
 
-    public User getCurrentUser() {
-        if (currentUser == null) {
-            String username = EMClient.getInstance().getCurrentUser();
-            L.e(TAG, "getCurrentUsername=" + username);
-            currentUser = new User(username);
-        }
-        return currentUser;
-    }
 
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
 
     /**
      * sync groups status listener
@@ -1256,4 +1245,16 @@ public class SuperWeChatHelper {
         easeUI.popActivity(activity);
     }
 
+    public User getCurrentUser() {
+        if (currentUser == null) {
+            String username = EMClient.getInstance().getCurrentUser();
+            L.e(TAG, "getCurrentUsername=" + username);
+            currentUser = new User(username);
+        }
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 }

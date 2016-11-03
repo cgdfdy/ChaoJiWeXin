@@ -30,16 +30,13 @@ import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatApplication;
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.bean.Result;
+import cn.ucai.superwechat.bean.User;
 import cn.ucai.superwechat.data.NetDao;
 import cn.ucai.superwechat.data.OkHttpUtils;
 import cn.ucai.superwechat.db.SuperWeChatManager;
@@ -56,16 +53,13 @@ import cn.ucai.superwechat.utils.ResultUtils;
 public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
     public static final int REQUEST_CODE_SETNICK = 1;
-    @Bind(R.id.btn_back)
-    Button btnBack;
-    @Bind(R.id.tv_title)
-    TextView tvTitle;
-    @Bind(R.id.username)
-    EditText mUsername;
-    @Bind(R.id.password)
-    EditText mPassword;
 
+    Button btnBack;
+    TextView tvTitle;
+    EditText mUsername;
+    EditText mPassword;
     Button btnlogin;
+    Button btnregister;
 
     String currentUsername;
     String currentPassword;
@@ -85,8 +79,13 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         setContentView(R.layout.em_activity_login);
-        ButterKnife.bind(this);
         btnlogin= (Button) findViewById(R.id.btn_login);
+        btnBack= (Button) findViewById(R.id.btn_back);
+        btnregister= (Button) findViewById(R.id.btn_register);
+        mUsername = (EditText) findViewById(R.id.username);
+        mPassword= (EditText) findViewById(R.id.password);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+
         initView();
         setListener();
 
@@ -102,6 +101,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setListener() {
+        btnregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MFGT.gotoRegister(mContext);
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MFGT.finish(LoginActivity.this);
+
+            }
+        });
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,15 +284,4 @@ public class LoginActivity extends BaseActivity {
             }
         }
 
-    @OnClick({R.id.btn_back,R.id.btn_register})
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_back:
-                MFGT.finish(this);
-                break;
-            case R.id.btn_register:
-                MFGT.gotoRegister(this);
-                break;
-        }
-    }
 }

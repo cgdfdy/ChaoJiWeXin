@@ -77,16 +77,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            android:text="没有账号"
-            android:textColor="#62c3f1" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,5 +86,13 @@
             android:text="登录遇到问题？"
             android:textSize="15sp"
             android:textColor="#62c3f1" />
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            />
     </RelativeLayout>
 </LinearLayout>

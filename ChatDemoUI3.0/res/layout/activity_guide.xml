@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/btn_gologin" />
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_goregister"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:background="@drawable/icon_btn_register"
