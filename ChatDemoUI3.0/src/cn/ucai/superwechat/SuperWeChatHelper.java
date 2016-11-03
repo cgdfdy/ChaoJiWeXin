@@ -96,6 +96,8 @@ public class SuperWeChatHelper {
 
     private User currentUser =null;
 
+    private Map<String, User> appContactlist;
+
 
 
     /**
@@ -215,11 +217,18 @@ public class SuperWeChatHelper {
     protected void setEaseUIProviders() {
     	// set profile provider if you want easeUI to handle avatar and nickname
         easeUI.setUserProfileProvider(new EaseUserProfileProvider() {
-            
+
             @Override
             public EaseUser getUser(String username) {
                 return getUserInfo(username);
             }
+
+            @Override
+            public com.hyphenate.easeui.domain.User getAppUser(String username) {
+                return null;
+            }
+
+
         });
 
         //set options 
@@ -1257,4 +1266,53 @@ public class SuperWeChatHelper {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+    public void setAppContactList(Map<String, User> aContactList) {
+        if(aContactList == null){
+            if (appContactlist != null) {
+                appContactlist.clear();
+            }
+            return;
+        }
+
+        appContactlist = aContactList;
+    }
+
+    /**
+     * save single contact
+     */
+    public void saveAppContact(User user){
+        appContactlist.put(user.getMUserName(), user);
+        demoModel.saveAppContact(user);
+    }
+
+    /**
+     * get contact list
+     *
+     * @return
+     */
+    public Map<String, User> getAppContactList() {
+        if (isLoggedIn() && appContactlist == null) {
+            appContactlist = demoModel.getAppContactList();
+        }
+
+        // return a empty non-null object to avoid app crash
+        if(appContactlist == null){
+            return new Hashtable<String, User>();
+        }
+
+        return appContactlist;
+    }
+    /**
+     * update user list to cache and database
+
+     */
+    public void updateAppContactList(List<User> contactInfoList) {
+        for (User u : contactInfoList) {
+            appContactlist.put(u.getMUserName(), u);
+        }
+        ArrayList<User> mList = new ArrayList<User>();
+        mList.addAll(appContactlist.values());
+        demoModel.saveAppContactList(mList);
+    }
+
 }
