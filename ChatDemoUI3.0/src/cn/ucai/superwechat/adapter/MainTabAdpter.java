@@ -54,4 +54,7 @@ public class MainTabAdpter extends FragmentStatePagerAdapter {
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;
     }
+
+    public void addFragment(String string) {
+    }
 }

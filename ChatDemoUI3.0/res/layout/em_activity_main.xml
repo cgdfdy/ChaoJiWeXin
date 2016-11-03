@@ -26,6 +26,7 @@
             android:layout_height="1dp"
             android:background="#D6DCDC"/>
         <cn.ucai.superwechat.widget.DMTabHost
+            android:id="@+id/layout_tabhost"
             android:layout_width="match_parent"
             android:layout_height="47dp">
             <cn.ucai.superwechat.widget.DMTabButton
