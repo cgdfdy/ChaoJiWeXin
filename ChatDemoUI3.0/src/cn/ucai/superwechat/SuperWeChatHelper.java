@@ -225,8 +225,9 @@ public class SuperWeChatHelper {
 
             @Override
             public com.hyphenate.easeui.domain.User getAppUser(String username) {
-                return null;
+                return getAppUserInfo(username);
             }
+
 
 
         });
@@ -367,6 +368,17 @@ public class SuperWeChatHelper {
                 return intent;
             }
         });
+    }
+
+    private User getAppUserInfo(String username) {
+        // To get instance of EaseUser, here we get it from the user list in memory
+        // You'd better cache it if you get it from your server
+        User user = null;
+        user = getAppContactList().get(username);
+        if(user == null) {
+            user = new User(username);
+            EaseCommonUtils.setAppUserInitialLetter(user);
+        }return user;
     }
 
     EMConnectionListener connectionListener;
@@ -860,7 +872,7 @@ public class SuperWeChatHelper {
 	/**
 	 * update contact list
 	 * 
-	 * @param contactList
+	 * @param aContactList
 	 */
 	public void setContactList(Map<String, EaseUser> aContactList) {
 		if(aContactList == null){
