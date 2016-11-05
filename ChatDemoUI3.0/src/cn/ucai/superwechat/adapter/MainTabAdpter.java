@@ -8,6 +8,8 @@ import android.support.v4.view.PagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ucai.superwechat.ui.SettingsActivity;
+
 /**
  * Created by clawpo on 2016/9/22.
  */
@@ -55,6 +57,6 @@ public class MainTabAdpter extends FragmentStatePagerAdapter {
         return PagerAdapter.POSITION_NONE;
     }
 
-    public void addFragment(String string) {
+    public void addFragment(SettingsActivity settingsActivity, String string) {
     }
 }
