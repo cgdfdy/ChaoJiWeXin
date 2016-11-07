@@ -25,18 +25,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 
 import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatApplication;
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.bean.Result;
-import cn.ucai.superwechat.bean.User;
 import cn.ucai.superwechat.data.NetDao;
 import cn.ucai.superwechat.data.OkHttpUtils;
 import cn.ucai.superwechat.db.SuperWeChatManager;
@@ -54,7 +55,7 @@ public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
     public static final int REQUEST_CODE_SETNICK = 1;
 
-    Button btnBack;
+    ImageView ivBack;
     TextView tvTitle;
     EditText mUsername;
     EditText mPassword;
@@ -80,7 +81,7 @@ public class LoginActivity extends BaseActivity {
         }
         setContentView(R.layout.em_activity_login);
         btnlogin= (Button) findViewById(R.id.btn_login);
-        btnBack= (Button) findViewById(R.id.btn_back);
+        ivBack= (ImageView) findViewById(R.id.iv_Back);
         btnregister= (Button) findViewById(R.id.btn_register);
         mUsername = (EditText) findViewById(R.id.username);
         mPassword= (EditText) findViewById(R.id.password);
@@ -107,7 +108,7 @@ public class LoginActivity extends BaseActivity {
                 MFGT.gotoRegister(mContext);
             }
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MFGT.finish(LoginActivity.this);

@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseImageUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 
@@ -41,7 +41,6 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.bean.Result;
 
-import cn.ucai.superwechat.bean.User;
 import cn.ucai.superwechat.data.NetDao;
 import cn.ucai.superwechat.data.OkHttpUtils;
 import cn.ucai.superwechat.utils.CommonUtils;
@@ -56,8 +55,8 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
     private static final String TAG = UserProfileActivity.class.getSimpleName();
     private static final int REQUESTCODE_PICK = 1;
     private static final int REQUESTCODE_CUTTING = 2;
-    @Bind(R.id.btn_back)
-    Button btnBack;
+    @Bind(R.id.iv_Back)
+    ImageView ivBack;
     @Bind(R.id.tv_title)
     TextView tvTitle;
     @Bind(R.id.iv_profile_avatar)
@@ -83,14 +82,13 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
     }
 
     private void initView() {
-        btnBack.setVisibility(View.VISIBLE);
+        ivBack.setVisibility(View.VISIBLE);
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(getString(R.string.title_user_profile));
       }
 
     private void initListener() {
         EaseUserUtils.setCurrentAppUserAvatar(this,ivProfileAvatar);
-
         EaseUserUtils.setCurrentAppUserNick(tvProfileNickname);
         EaseUserUtils.setCurrentAppUserName(tvProfileWeixinhao);
     }
@@ -245,6 +243,38 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    private void updateAppUserAvatar(final Intent picData) {
+        dialog = ProgressDialog.show(this, getString(R.string.dl_update_photo), getString(R.string.dl_waiting));
+        dialog.show();
+        File file = saveBitmapFile(picData);
+        NetDao.updateAvatar(this, user.getMUserName(), file, new OkHttpUtils.OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (s != null){
+                    Result result = ResultUtils.getResultFromJson(s, User.class);
+                    if (result != null && result.isRetMsg()){
+                        User u= (User) result.getRetData();
+                        SuperWeChatHelper.getInstance().saveAppContact(u);
+                        setPicToView(picData);
+                    }else {
+                        dialog.dismiss();
+                        CommonUtils.showMsgShortToast(result != null ? result.getRetCode() : -1);
+                        //                    CommonUtils.showLongToast( R.string.toast_updatephoto_fail);
+                    }
+                }else{
+                    dialog.dismiss();
+                    CommonUtils.showLongToast(R.string.toast_updatephoto_fail);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                L.e(TAG,"error="+error);
+                CommonUtils.showLongToast(R.string.toast_updatephoto_fail);
+            }
+        });
+
+    }
 
     public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -270,7 +300,11 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(getResources(), photo);
             ivProfileAvatar.setImageDrawable(drawable);
-            uploadUserAvatar(Bitmap2Bytes(photo));
+            dialog.dismiss();
+            Toast.makeText(UserProfileActivity.this, getString(R.string.toast_updatephoto_success),
+                    Toast.LENGTH_SHORT).show();
+//            uploadUserAvatar(Bitmap2Bytes(photo));
+
         }
 
     }
@@ -289,6 +323,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
                         if (avatarUrl != null) {
                             Toast.makeText(UserProfileActivity.this, getString(R.string.toast_updatephoto_success),
                                     Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(UserProfileActivity.this, getString(R.string.toast_updatephoto_fail),
                                     Toast.LENGTH_SHORT).show();
@@ -310,10 +345,10 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
         return baos.toByteArray();
     }
 
-    @OnClick({R.id.ivBack,R.id.layout_avatar, R.id.layout_profile_nick, R.id.layout_weixinhao})
+    @OnClick({R.id.iv_Back,R.id.layout_avatar, R.id.layout_profile_nick, R.id.layout_weixinhao})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ivBack:
+            case R.id.iv_Back:
                 MFGT.finish(this);
                 break;
             case R.id.layout_avatar:

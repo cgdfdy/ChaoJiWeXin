@@ -45,7 +45,7 @@ public class RegisterActivity extends BaseActivity {
     private EditText nickEditText ;
     private EditText passwordEditText;
     private EditText confirmPwdEditText;
-    private Button btnregister;
+
     ProgressDialog pd =null;
     String username;
     String nickname ;
@@ -58,10 +58,11 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.em_activity_register);
         ButterKnife.bind(this);
         mContext =this;
-        btnregister = (Button) findViewById(R.id.btn_register);
         userNameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
+        nickEditText = (EditText) findViewById(R.id.nick);
         confirmPwdEditText = (EditText) findViewById(R.id.confirm_password);
+
     }
 
     public void register() {
@@ -195,10 +196,10 @@ public class RegisterActivity extends BaseActivity {
         MFGT.finish(this);
     }
 
-    @OnClick({R.id.btn_back,R.id.btn_register})
+    @OnClick({R.id.iv_Back,R.id.btn_register})
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_back:
+            case R.id.iv_Back:
                 MFGT.finish(this);
                 break;
             case R.id.btn_register:

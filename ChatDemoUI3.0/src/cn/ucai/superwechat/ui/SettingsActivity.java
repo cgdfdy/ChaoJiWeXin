@@ -363,7 +363,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 				startActivity(new Intent(this, SetServersActivity.class));
 				break;
 
-			case R.id.btn_back:
+			case R.id.iv_Back:
 				MFGT.finish(this);
 					break;
 			default:
