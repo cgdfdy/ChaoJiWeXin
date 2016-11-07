@@ -2,6 +2,7 @@ package cn.ucai.superwechat.ui;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.R;
+import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.utils.MFGT;
 
 /**
@@ -27,7 +29,13 @@ public class FriendProfileActivity extends BaseActivity {
     TextView findfriendTvUsernick;
     @Bind(R.id.findfriend_tv_username)
     TextView findfriendTvUsername;
-    User user =null;
+    User user = null;
+    @Bind(R.id.findfriend_btn_add)
+    Button findfriendBtnAdd;
+    @Bind(R.id.findfriend_btn_sendmessage)
+    Button findfriendBtnSendmessage;
+    @Bind(R.id.findfriend_btn_videocat)
+    Button findfriendBtnVideocat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +43,7 @@ public class FriendProfileActivity extends BaseActivity {
         setContentView(R.layout.activity_friend_profile);
         ButterKnife.bind(this);
         user = (User) getIntent().getSerializableExtra(I.User.USER_NAME);
-        if (user==null){
+        if (user == null) {
             MFGT.finish(this);
         }
         initView();
@@ -44,18 +52,43 @@ public class FriendProfileActivity extends BaseActivity {
     private void initView() {
         findfrindIvBack.setVisibility(View.VISIBLE);
         setUserInfo();
-
+        isFriend();
 
 
     }
+
+    private void isFriend() {
+        if (SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName())) {
+
+            findfriendBtnVideocat.setVisibility(View.VISIBLE);
+            findfriendBtnSendmessage.setVisibility(View.VISIBLE);
+        } else {
+            findfriendBtnAdd.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
     private void setUserInfo() {
-        EaseUserUtils.setAppUserAvatar(this,user.getMUserName(),findfriendIvUserAvatar);
-        EaseUserUtils.setAppUserNick(user.getMUserName(),findfriendTvUsernick);
-        EaseUserUtils.setAppUserNameWithNo(user.getMUserName(),findfriendTvUsername);
+        EaseUserUtils.setAppUserAvatar(this, user.getMUserName(), findfriendIvUserAvatar);
+        EaseUserUtils.setAppUserNick(user.getMUserNick(), findfriendTvUsernick);
+        EaseUserUtils.setAppUserNameWithNo(user.getMUserName(), findfriendTvUsername);
 
     }
 
-    @OnClick(R.id.findfrind_iv_back)
-    public void onClick() {
+    @OnClick({R.id.findfrind_iv_back, R.id.findfriend_btn_add, R.id.findfriend_btn_sendmessage, R.id.findfriend_btn_videocat})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.findfrind_iv_back:
+                MFGT.finish(this);
+                break;
+            case R.id.findfriend_btn_add:
+                MFGT.gotoAddFirendMsg(this,user.getMUserName());
+                break;
+            case R.id.findfriend_btn_sendmessage:
+                break;
+            case R.id.findfriend_btn_videocat:
+                break;
+        }
     }
 }
