@@ -94,6 +94,7 @@ public class AddFriendActivity extends BaseActivity {
                 } catch (final Exception e) {
                     runOnUiThread(new Runnable() {
                         public void run() {
+
                             progressDialog.dismiss();
                             String s2 = getResources().getString(R.string.Request_add_buddy_failure);
                             Toast.makeText(getApplicationContext(), s2 + e.getMessage(), Toast.LENGTH_LONG).show();
