@@ -1,7 +1,9 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
