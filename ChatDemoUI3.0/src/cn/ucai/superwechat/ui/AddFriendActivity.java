@@ -85,6 +85,7 @@ public class AddFriendActivity extends BaseActivity {
                     EMClient.getInstance().contactManager().addContact(username, msg);
                     runOnUiThread(new Runnable() {
                         public void run() {
+
                             progressDialog.dismiss();
                             String s1 = getResources().getString(R.string.send_successful);
                             Toast.makeText(getApplicationContext(), s1, Toast.LENGTH_LONG).show();
