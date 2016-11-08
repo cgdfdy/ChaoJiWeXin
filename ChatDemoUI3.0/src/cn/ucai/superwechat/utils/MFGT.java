@@ -74,4 +74,10 @@ public class MFGT {
     public static void gotoNewFriendsMsg(Activity context){
         startActivity(context, NewFriendsMsgActivity.class);
     }
+    public static void gotoChatActivity(Activity context,String username){
+        Intent intent = new Intent();
+        intent.setClass(context, AddContactActivity.class);
+        intent.putExtra("userId",username);
+        startActivity(context,intent);
+    }
 }
