@@ -54,7 +54,7 @@ import java.util.Map.Entry;
  * contact list
  *
  */
-public class EaseContactListFragment extends EaseBaseFragment {
+public  class EaseContactListFragment extends EaseBaseFragment {
     private static final String TAG = "EaseContactListFragment";
     protected ArrayList<User> contactList;
     protected ListView listView;
@@ -151,6 +151,7 @@ public class EaseContactListFragment extends EaseBaseFragment {
         });
 
     }
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {

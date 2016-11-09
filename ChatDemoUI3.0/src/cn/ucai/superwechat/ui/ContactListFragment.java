@@ -356,5 +356,6 @@ public class ContactListFragment extends EaseContactListFragment {
         }
         
     }
+
 	
 }
