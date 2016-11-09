@@ -52,6 +52,7 @@ public class FriendProfileActivity extends BaseActivity {
 
     private void initView() {
         findfrindIvBack.setVisibility(View.VISIBLE);
+
         setUserInfo();
         isFriend();
 
