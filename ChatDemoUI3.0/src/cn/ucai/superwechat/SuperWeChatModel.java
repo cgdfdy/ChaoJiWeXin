@@ -287,6 +287,11 @@ public class SuperWeChatModel {
         dao.saveAppContactList(mList);
         return true;
     }
+    public void delAppContact(String username){
+        UserDao dao = new UserDao(context);
+        dao.deleteAppContact(username);
+
+    }
 
     enum Key{
         VibrateAndPlayToneOn,
@@ -296,4 +301,5 @@ public class SuperWeChatModel {
         DisabledGroups,
         DisabledIds
     }
+
 }

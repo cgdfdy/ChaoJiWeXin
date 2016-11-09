@@ -97,6 +97,14 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     MainTabAdpter adpter;
     TitlePopup mTitlePopup;
 
+    private AlertDialog.Builder conflictBuilder;
+    private AlertDialog.Builder accountRemovedBuilder;
+    private boolean isConflictDialogShow;
+    private boolean isAccountRemovedDialogShow;
+    private BroadcastReceiver internalDebugReceiver;
+    private ConversationListFragment conversationListFragment;
+    private BroadcastReceiver broadcastReceiver;
+    private LocalBroadcastManager broadcastManager;
 
     /**
      * check if current user account was remove
@@ -212,7 +220,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         layoutViewpage.setAdapter(adpter);
         layoutViewpage.setOffscreenPageLimit(4);
         adpter.clear();
-        adpter.addFragment(new ConversationListFragment(), getString(R.string.app_name));
+        adpter.addFragment(contactListFragment, getString(R.string.app_name));
         adpter.addFragment(contactListFragment,getString(R.string.contacts));
         adpter.addFragment(new DiscoverFragment(), getString(R.string.discover));
         adpter.addFragment(new SettingsActivity(), getString(R.string.me));
@@ -291,12 +299,12 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             public void run() {
                 // refresh unread count
                 updateUnreadLabel();
-//				if (currentTabIndex == 0) {
-//					// refresh conversation list
-//					if (conversationListFragment != null) {
-//						conversationListFragment.refresh();
-//					}
-//				}
+				if (currentTabIndex == 0) {
+					// refresh conversation list
+					if (conversationListFragment != null) {
+						conversationListFragment.refresh();
+					}
+				}
             }
         });
     }
@@ -318,12 +326,12 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             public void onReceive(Context context, Intent intent) {
                 updateUnreadLabel();
                 updateUnreadAddressLable();
-//                if (currentTabIndex == 0) {
-//                    // refresh conversation list
-//                    if (conversationListFragment != null) {
-//                        conversationListFragment.refresh();
-//                    }
-//                } else
+                if (currentTabIndex == 0) {
+                    // refresh conversation list
+                    if (conversationListFragment != null) {
+                        conversationListFragment.refresh();
+                    }
+                } else
                     if (currentTabIndex == 1) {
                     if(contactListFragment != null) {
                         contactListFragment.refresh();
@@ -534,14 +542,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         return super.onKeyDown(keyCode, event);
     }
 
-    private AlertDialog.Builder conflictBuilder;
-    private AlertDialog.Builder accountRemovedBuilder;
-    private boolean isConflictDialogShow;
-    private boolean isAccountRemovedDialogShow;
-    private BroadcastReceiver internalDebugReceiver;
-    private ConversationListFragment conversationListFragment;
-    private BroadcastReceiver broadcastReceiver;
-    private LocalBroadcastManager broadcastManager;
+
 
     /**
      * show the dialog when user logged into another device

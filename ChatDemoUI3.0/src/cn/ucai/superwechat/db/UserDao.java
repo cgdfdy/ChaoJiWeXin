@@ -134,4 +134,11 @@ public class UserDao {
 		SuperWeChatManager.getInstance().saveAppContactList(mList);
 
 	}
+	/**
+	 * delete a contact
+	 * @param username
+	 */
+	public void deleteAppContact(String username){
+		SuperWeChatManager.getInstance().deleteContact(username);
+	}
 }
