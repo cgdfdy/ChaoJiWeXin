@@ -29,7 +29,7 @@ public class EaseUserUtils {
      * @param username
      * @return
      */
-    public static EaseUser getUserInfo(String username){
+    public static User getUserInfo(String username){
         if(userProvider != null)
             return userProvider.getUser(username);
         
