@@ -185,8 +185,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         titleBar.setTitle(toChatUsername);
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
-            if(EaseUserUtils.getUserInfo(toChatUsername) != null){
-                User user = EaseUserUtils.getUserInfo(toChatUsername);
+            if(EaseUserUtils.getAppUserInfo(toChatUsername) != null){
+                User user = EaseUserUtils.getAppUserInfo(toChatUsername);
                 if (user != null) {
                     titleBar.setTitle(user.getMUserNick());
                 }
@@ -452,6 +452,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     public void onBackPressed() {
+
+
         if (inputMenu.onBackPressed()) {
             getActivity().finish();
             if(chatType == EaseConstant.CHATTYPE_GROUP){
