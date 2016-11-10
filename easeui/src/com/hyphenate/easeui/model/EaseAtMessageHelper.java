@@ -16,6 +16,7 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 
 public class EaseAtMessageHelper {
@@ -63,9 +64,9 @@ public class EaseAtMessageHelper {
             for(String username : toAtUserList){
                 String nick = username;
                 if(EaseUserUtils.getUserInfo(username) != null){
-                    EaseUser user = EaseUserUtils.getUserInfo(username);
+                    User user = EaseUserUtils.getUserInfo(username);
                     if (user != null) {
-                        nick = user.getNick();
+                        nick = user.getMUserNick();
                     }
                 }
                 if(content.contains(nick)){
@@ -98,9 +99,9 @@ public class EaseAtMessageHelper {
             for(String username : toAtUserList){
                 String nick = username;
                 if(EaseUserUtils.getUserInfo(username) != null){
-                    EaseUser user = EaseUserUtils.getUserInfo(username);
+                    User user = EaseUserUtils.getUserInfo(username);
                     if (user != null) {
-                        nick = user.getNick();
+                        nick = user.getMUserNick();
                     }
                 }
                 if(content.contains(nick)){
@@ -183,7 +184,7 @@ public class EaseAtMessageHelper {
     }
     
     public boolean isAtMeMsg(EMMessage message){
-        EaseUser user = EaseUserUtils.getUserInfo(message.getFrom());
+        User user = EaseUserUtils.getUserInfo(message.getFrom());
         if(user != null){
             try {
                 JSONArray jsonArray = message.getJSONArrayAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG);

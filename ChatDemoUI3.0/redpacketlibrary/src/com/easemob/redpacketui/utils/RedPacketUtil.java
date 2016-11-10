@@ -26,6 +26,7 @@ import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseChatMessageList;
 import com.hyphenate.exceptions.HyphenateException;
@@ -52,10 +53,10 @@ public class RedPacketUtil {
         String fromAvatarUrl = "none";
         //发送者昵称 设置了昵称就传昵称 否则传id
         String fromNickname = EMClient.getInstance().getCurrentUser();
-        EaseUser easeUser = EaseUserUtils.getUserInfo(fromNickname);
+        User easeUser = EaseUserUtils.getUserInfo(fromNickname);
         if (easeUser != null) {
             fromAvatarUrl = TextUtils.isEmpty(easeUser.getAvatar()) ? "none" : easeUser.getAvatar();
-            fromNickname = TextUtils.isEmpty(easeUser.getNick()) ? easeUser.getUsername() : easeUser.getNick();
+            fromNickname = TextUtils.isEmpty(easeUser.getMUserNick()) ? easeUser.getMUserName() : easeUser.getMUserNick();
         }
         RedPacketInfo redPacketInfo = new RedPacketInfo();
         redPacketInfo.fromAvatarUrl = fromAvatarUrl;
@@ -82,17 +83,17 @@ public class RedPacketUtil {
                     EMGroup group = EMClient.getInstance().groupManager().getGroup(groupID);
                     List<String> members = group.getMembers();
                     List<RPUserBean> userBeanList = new ArrayList<RPUserBean>();
-                    EaseUser user;
+                    User user;
                     for (int i = 0; i < members.size(); i++) {
                         RPUserBean userBean = new RPUserBean();
                         userBean.userId = members.get(i);
                         if (userBean.userId.equals(EMClient.getInstance().getCurrentUser())) {
                             continue;
                         }
-                        user = EaseUserUtils.getUserInfo(userBean.userId);
+                        user = EaseUserUtils.getAppUserInfo(userBean.userId);
                         if (user != null) {
                             userBean.userAvatar = TextUtils.isEmpty(user.getAvatar()) ? "none" : user.getAvatar();
-                            userBean.userNickname = TextUtils.isEmpty(user.getNick()) ? user.getUsername() : user.getNick();
+                            userBean.userNickname = TextUtils.isEmpty(user.getMUserNick()) ? user.getMUserName() : user.getMUserNick();
                         } else {
                             userBean.userNickname = userBean.userId;
                             userBean.userAvatar = "none";
@@ -171,10 +172,10 @@ public class RedPacketUtil {
         } else {
             messageDirect = RPConstant.MESSAGE_DIRECT_RECEIVE;
         }
-        EaseUser easeUser = EaseUserUtils.getUserInfo(EMClient.getInstance().getCurrentUser());
+        User easeUser = EaseUserUtils.getUserInfo(EMClient.getInstance().getCurrentUser());
         if (easeUser != null) {
             toAvatarUrl = TextUtils.isEmpty(easeUser.getAvatar()) ? "none" : easeUser.getAvatar();
-            toNickname = TextUtils.isEmpty(easeUser.getNick()) ? easeUser.getUsername() : easeUser.getNick();
+            toNickname = TextUtils.isEmpty(easeUser.getMUserNick()) ? easeUser.getMUserName() : easeUser.getMUserNick();
         }
         String specialAvatarUrl = "none";
         String specialNickname = "";
@@ -182,10 +183,10 @@ public class RedPacketUtil {
         packetType = message.getStringAttribute(RedPacketConstant.MESSAGE_ATTR_RED_PACKET_TYPE, "");
         String specialReceiveId = message.getStringAttribute(RedPacketConstant.MESSAGE_ATTR_SPECIAL_RECEIVER_ID, "");
         if (!TextUtils.isEmpty(packetType) && packetType.equals(RedPacketConstant.GROUP_RED_PACKET_TYPE_EXCLUSIVE)) {
-            EaseUser userInfo = EaseUserUtils.getUserInfo(specialReceiveId);
+            User userInfo = EaseUserUtils.getUserInfo(specialReceiveId);
             if (userInfo != null) {
                 specialAvatarUrl = TextUtils.isEmpty(userInfo.getAvatar()) ? "none" : userInfo.getAvatar();
-                specialNickname = TextUtils.isEmpty(userInfo.getNick()) ? userInfo.getUsername() : userInfo.getNick();
+                specialNickname = TextUtils.isEmpty(userInfo.getMUserNick()) ? userInfo.getMUserName() : userInfo.getMUserNick();
             } else {
                 specialNickname = specialReceiveId;
             }
@@ -208,9 +209,9 @@ public class RedPacketUtil {
                 String receiverId = EMClient.getInstance().getCurrentUser();
                 //设置默认值为id
                 String receiverNickname = receiverId;
-                EaseUser receiverUser = EaseUserUtils.getUserInfo(receiverId);
+                User receiverUser = EaseUserUtils.getUserInfo(receiverId);
                 if (receiverUser != null) {
-                    receiverNickname = TextUtils.isEmpty(receiverUser.getNick()) ? receiverUser.getUsername() : receiverUser.getNick();
+                    receiverNickname = TextUtils.isEmpty(receiverUser.getMUserNick()) ? receiverUser.getMUserName() : receiverUser.getMUserNick();
                 }
                 if (chatType == EaseConstant.CHATTYPE_SINGLE) {
                     EMMessage msg = EMMessage.createTxtSendMessage(String.format(activity.getResources().getString(R.string.msg_someone_take_red_packet), receiverNickname), toChatUsername);
@@ -264,10 +265,10 @@ public class RedPacketUtil {
         Intent intent = new Intent(context, RPChangeActivity.class);
         String fromNickname = EMClient.getInstance().getCurrentUser();
         String fromAvatarUrl = "none";
-        EaseUser easeUser = EaseUserUtils.getUserInfo(fromNickname);
+        User easeUser = EaseUserUtils.getUserInfo(fromNickname);
         if (easeUser != null) {
             fromAvatarUrl = TextUtils.isEmpty(easeUser.getAvatar()) ? "none" : easeUser.getAvatar();
-            fromNickname = TextUtils.isEmpty(easeUser.getNick()) ? easeUser.getUsername() : easeUser.getNick();
+            fromNickname = TextUtils.isEmpty(easeUser.getMUserNick()) ? easeUser.getMUserName() : easeUser.getMUserNick();
         }
         RedPacketInfo redPacketInfo = new RedPacketInfo();
         redPacketInfo.fromNickName = fromNickname;

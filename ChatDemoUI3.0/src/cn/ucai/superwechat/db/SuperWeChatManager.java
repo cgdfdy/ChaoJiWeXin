@@ -469,7 +469,7 @@ public class SuperWeChatManager {
 
     }
 
-    synchronized public void saveAppContactList(ArrayList<User> mList) {
+    synchronized public void saveAppContactList(List<User> mList) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         if (db.isOpen()) {
             db.delete(UserDao.TABLE_USER_NAME, null, null);

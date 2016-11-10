@@ -130,7 +130,7 @@ public class UserDao {
 		SuperWeChatManager.getInstance().saveAppContact(user);
 	}
 
-	public void saveAppContactList(ArrayList<User> mList) {
+	public void saveAppContactList(List<User> mList) {
 		SuperWeChatManager.getInstance().saveAppContactList(mList);
 
 	}
@@ -141,4 +141,5 @@ public class UserDao {
 	public void deleteAppContact(String username){
 		SuperWeChatManager.getInstance().deleteContact(username);
 	}
+
 }

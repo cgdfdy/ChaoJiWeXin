@@ -31,7 +31,7 @@ public class EaseUserUtils {
      */
     public static User getUserInfo(String username){
         if(userProvider != null)
-            return userProvider.getUser(username);
+            return userProvider.getAppUser(username);
         
         return null;
     }
@@ -53,7 +53,7 @@ public class EaseUserUtils {
      * @param username
      */
     public static void setUserAvatar(Context context, String username, ImageView imageView){
-    	EaseUser user = getUserInfo(username);
+    	User user = getUserInfo(username);
         if(user != null && user.getAvatar() != null){
             try {
                 int avatarResId = Integer.parseInt(user.getAvatar());
@@ -72,9 +72,9 @@ public class EaseUserUtils {
      */
     public static void setUserNick(String username,TextView textView){
         if(textView != null){
-        	EaseUser user = getUserInfo(username);
-        	if(user != null && user.getNick() != null){
-        		textView.setText(user.getNick());
+        	User user = getUserInfo(username);
+        	if(user != null && user.getMUserNick() != null){
+        		textView.setText(user.getMUserNick());
         	}else{
         		textView.setText(username);
         	}
